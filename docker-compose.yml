@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+  mysql_db:
+    container_name: mysql_db
+    image: mysql
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD:$MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE:$MYSQL_DATABASE
+    ports:
+      - $MYSQL_LOCAL_PORT:3306
+    volumes:
+      - /work/docker_data:/var/lib/mysql
+    networks:
+      - back_end
+
+  server:
+    container_name: server
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: server
+    command: npm start
+    env_file:
+      - ./.env
+    ports:
+      - $API_LOCAL_PORT:3001
+    depends_on:
+      - mysql_db
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./api/:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - back_end
+      - front_end
+
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: client
+    command: npm start
+    env_file:
+      - .env
+    ports:
+      - $CLIENT_LOCAL_PORT:3000
+    depends_on:
+      - server
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./client/:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - front_end
+
+networks:
+  front_end:
+  back_end:
