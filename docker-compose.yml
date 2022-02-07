@@ -13,7 +13,8 @@ services:
     ports:
       - $MYSQL_LOCAL_PORT:3306
     volumes:
-      - /work/docker_data:/var/lib/mysql
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
     networks:
       - back_end
 
@@ -25,7 +26,7 @@ services:
     image: server
     command: npm start
     env_file:
-      - ./.env
+      - .env
     ports:
       - $API_LOCAL_PORT:3001
     depends_on:
@@ -45,11 +46,11 @@ services:
       context: ./client
       dockerfile: Dockerfile
     image: client
-    command: npm start
+    command: npm run serve-docker
     env_file:
       - .env
     ports:
-      - $CLIENT_LOCAL_PORT:3000
+      - $CLIENT_LOCAL_PORT:5000
     depends_on:
       - server
     stdin_open: true
