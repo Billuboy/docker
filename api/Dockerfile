@@ -1,8 +1,8 @@
 FROM node:16.13-alpine
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir /home/app
+WORKDIR /home/app
 COPY package*.json ./
 RUN npm install --silent
-COPY . .
+COPY . ./
 EXPOSE 3001
 CMD ["npm", "start"]

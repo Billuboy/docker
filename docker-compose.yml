@@ -33,9 +33,6 @@ services:
       - mysql_db
     stdin_open: true
     tty: true
-    volumes:
-      - ./api/:/usr/src/app
-      - /usr/src/app/node_modules
     networks:
       - back_end
       - front_end
@@ -46,7 +43,7 @@ services:
       context: ./client
       dockerfile: Dockerfile
     image: client
-    command: npm run serve-docker
+    command: npm run serve
     env_file:
       - .env
     ports:
@@ -55,9 +52,6 @@ services:
       - server
     stdin_open: true
     tty: true
-    volumes:
-      - ./client/:/usr/src/app
-      - /usr/src/app/node_modules
     networks:
       - front_end
 
