@@ -14,7 +14,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "serve": "cd /work/Projects/Local/Docker/client/ && serve build -p 5000",
+    "serve": "serve build -p 5000",
     "serve-docker": "cd /usr/src/app/ && serve build -p 5000"
   }
 }

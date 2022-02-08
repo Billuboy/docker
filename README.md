@@ -1,4 +1,5 @@
 # Dockerized webapp
+
 _A Simple webapp made with React, express and mysql and containerized with the help of docker._
 
 ## Quick start
@@ -10,4 +11,3 @@ _A Simple webapp made with React, express and mysql and containerized with the h
 5. By default port `3000` is assigned to `MySQL`, port `4000` is assigned to `API` and port `5000` is assigned to `REACT`.
 6. If you want to change MySQL table structure, you can add you sql queries inside `/mysql/dump.sql`.
 7. `/mysql/data` is for storing mysql data in local storage, so that your data inside mysql won't get erased on container removal.
-

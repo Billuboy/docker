@@ -10,7 +10,7 @@ export default function Index() {
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get(`${url}`);
+      const { data } = await axios.get(url);
       setUsers(data);
       setLoading(false);
     })();

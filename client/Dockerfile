@@ -6,4 +6,4 @@ RUN npm install --silent
 COPY . .
 RUN npm run build
 EXPOSE 5000
-CMD ["npm", "start"]
+CMD ["npm", "run", "serve"]
