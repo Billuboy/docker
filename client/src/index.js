@@ -6,11 +6,13 @@ import axios from 'axios';
 export default function Index() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const url = `http://localhost:${process.env.REACT_APP_API_LOCAL_PORT}/`;
+  const baseURL = `http://localhost:${
+    process.env.REACT_APP_API_LOCAL_PORT ?? 3001
+  }`;
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get(url);
+      const { data } = await axios.get(`${baseURL}/`);
       setUsers(data);
       setLoading(false);
     })();

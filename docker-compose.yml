@@ -1,23 +1,6 @@
 version: '3'
 
 services:
-  mysql_db:
-    container_name: mysql_db
-    image: mysql
-    restart: unless-stopped
-    env_file:
-      - .env
-    environment:
-      - MYSQL_ROOT_PASSWORD:$MYSQL_ROOT_PASSWORD
-      - MYSQL_DATABASE:$MYSQL_DATABASE
-    ports:
-      - $MYSQL_LOCAL_PORT:3306
-    volumes:
-      - ./mysql/data:/var/lib/mysql
-      - ./mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
-    networks:
-      - back_end
-
   server:
     container_name: server
     build:
@@ -29,12 +12,8 @@ services:
       - .env
     ports:
       - $API_LOCAL_PORT:3001
-    depends_on:
-      - mysql_db
     stdin_open: true
     tty: true
-    networks:
-      - back_end
       - front_end
 
   client:
@@ -52,9 +31,3 @@ services:
       - server
     stdin_open: true
     tty: true
-    networks:
-      - front_end
-
-networks:
-  front_end:
-  back_end:
